@@ -1,39 +1,53 @@
 
-var key = "savedName";
+// Step 1: Create a key name
+const key = "SaveData";
 
-const dataInput = document.querySelector(".data-input");
-const deleteInput = document.querySelector(".delete-input");
+// Get elements
+const inputBox = document.getElementById("inputBox");
+const deleteKeyInput = document.getElementById("deleteKey");
+
+const saveBtn = document.getElementById("saveBtn");
+const loadBtn = document.getElementById("loadBtn");
+const deleteBtn = document.getElementById("deleteBtn");
 
 
+// ---------------------
+// Save Data
+// ---------------------
+saveBtn.addEventListener("click", function () {
 
-// SAVE
-document.querySelector(".save").onclick = function() {
+    // a. get value from first input
+    let value = inputBox.value;
 
-	const value = dataInput.value;
+    // b & c. store value in localStorage using the key
+    localStorage.setItem(key, value);
 
- localStorage.setItem( key, value );
+    // d. clear the input
+    inputBox.value = "";
+});
 
- dataInput.value = "";
 
-    console.log("Saved", value )
-};
+// ---------------------
+// Display Stored Data
+// ---------------------
+loadBtn.addEventListener("click", function () {
 
-// LOAD
-document.querySelector(".update").onclick = function() {
+    // a & b. get item using the key
+    let storedData = localStorage.getItem(key);
 
-    const load = localStorage.getItem(key);
-    
-    dataInput.value = load;
+    // c & d. display the stored value in the input box
+    inputBox.value = storedData;
+});
 
-    console.log( "Loaded", load )
-};
 
-// DELETE
-document.querySelector(".delete").onclick = function() {
+// ---------------------
+// Delete Data
+// ---------------------
+deleteBtn.addEventListener("click", function () {
 
-   const deleteKey = deleteInput.value;
+    // get key name from delete input
+    let deleteKey = deleteKeyInput.value;
 
-   localStorage.removeItem(deleteKey);
-
-   console.log("DeletedKey:", deleteKey);
-};
+    // remove item from localStorage
+    localStorage.removeItem(deleteKey);
+});
